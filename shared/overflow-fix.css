@@ -1,0 +1,11 @@
+/* =========================================================
+   IFH — Legal / long text pages: allow normal page scroll
+   ========================================================= */
+
+html,
+body,
+.page_wrapper {
+  overflow-y: auto !important;
+  height: auto !important;
+  max-height: none !important;
+}

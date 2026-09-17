@@ -1,0 +1,85 @@
+/* =========================================================
+   IFH — Shared intl-tel-input styles
+   https://ifh-code.pages.dev/shared/intl-tel-input.css
+   ========================================================= */
+
+.intl-tel-input {
+  width: 100% !important;
+}
+
+.intl-tel-input .country-list {
+  border-radius: 8px !important;
+  background-color: white !important;
+  color: #191919 !important;
+  max-height: 300px !important;
+  overflow-y: auto !important;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.intl-tel-input .selected-flag {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.intl-tel-input .iti__flag-container {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.intl-tel-input .selected-flag:hover,
+.intl-tel-input .selected-flag:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.intl-tel-input .selected-flag > div {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.w-input .selected-flag {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.intl-tel-input .selected-flag img {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.intl-tel-input .iti__selected-flag {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.intl-tel-input .iti__selected-dial-code {
+  display: inline-block !important;
+  color: inherit !important;
+  font-weight: normal !important;
+  margin-left: 5px !important;
+}
+
+.intl-tel-input .iti__flag {
+  display: block !important;
+  width: 20px !important;
+  height: 15px !important;
+}
+
+.iti--separate-dial-code .iti__selected-flag {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
