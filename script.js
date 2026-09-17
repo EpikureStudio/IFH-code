@@ -1,6 +1,7 @@
 /* =========================================================
    IFH — Main scripts
-   Host on Netlify, load at end of Webflow <body>
+   Hosted at https://ifh-code.pages.dev/script.js
+   Load at end of Webflow <body>
    ========================================================= */
 
 window.IFH = window.IFH || {};

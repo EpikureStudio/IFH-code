@@ -1,0 +1,14 @@
+# Cloudflare Pages — CORS + short cache for CSS/JS
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+
+/*.css
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+/*.js
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+/*.html
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300

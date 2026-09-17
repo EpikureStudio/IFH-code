@@ -1,5 +1,6 @@
 /* =========================================================
    IFH — Early head scripts
+   Hosted at https://ifh-code.pages.dev/head.js
    Load synchronously in <head> (before paint) to avoid FOUC
    ========================================================= */
 
