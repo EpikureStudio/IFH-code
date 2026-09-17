@@ -1,0 +1,241 @@
+/* =========================================================
+   IFH — Custom styles
+   Host on Netlify, link from Webflow Project Settings > Head
+   ========================================================= */
+
+/* ------------------------ Phone input ------------------------ */
+
+.iti--separate-dial-code .iti__selected-flag {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+@media (min-width: 992px) and (max-height: 580px) {
+  .menu-link-text-2 {
+    font-size: 16px !important;
+  }
+}
+
+/* ------------------------ YouTube cover ------------------------ */
+
+:root {
+  --yt-logo-url: url("https://cdn.prod.website-files.com/6784da8e22d2055bf6b5e48d/68e90bb20e2b65da9f763240_IFH.png");
+  --yt-overlay-opacity: 0.98; /* 1 = full black */
+}
+
+.yt-wrap {
+  position: relative;
+}
+
+.yt-cover {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, var(--yt-overlay-opacity));
+  z-index: 5;
+  pointer-events: none !important;
+}
+
+.yt-cover.is-visible {
+  display: flex;
+}
+
+.yt-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--yt-logo-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.yt-hotspot {
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: 20%;
+  bottom: 28%;
+  cursor: pointer;
+  background: transparent;
+  z-index: 6;
+  display: none;
+}
+
+.yt-cover.is-visible + .yt-hotspot {
+  display: block;
+}
+
+.yt-shield {
+  display: none !important;
+}
+
+/* ------------------------ Breadcrumb ------------------------ */
+
+.breadcrumb,
+.ariane-inside {
+  font-family: "Jost", sans-serif;
+  font-size: 14px;
+  color: #191919;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.breadcrumb a,
+.ariane-inside a {
+  color: #b39059;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover,
+.ariane-inside a:hover {
+  text-decoration: underline;
+}
+
+.separator {
+  color: #ccc;
+}
+
+/* ------------------------ Localization switcher ------------------------ */
+
+.w-locales-list {
+  position: relative;
+  display: inline-block;
+}
+
+.w-locales-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.w-locales-code {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.wg-flag-look {
+  width: 16px;
+  height: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.w-locales-arrow {
+  font-size: 10px;
+  margin-left: 2px;
+  transition: transform 0.2s ease;
+  line-height: 1;
+}
+
+.w-locales-list.is-open .w-locales-arrow {
+  transform: rotate(180deg);
+}
+
+.w-locales-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 82px;
+  padding: 0.35rem;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: 0.2s ease;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+.w-locales-list.is-open .w-locales-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.w-locales-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 100%;
+  padding: 0.35rem 0.45rem;
+  text-decoration: none;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.w-locales-option:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.w-locales-item {
+  display: none;
+}
+
+/* =========================================================
+   LANGUAGE VISIBILITY
+   FR            => hide .no-fr
+   EN / ES / HI / ZH => hide .no-en
+   ========================================================= */
+
+html[lang^="fr"] .no-fr {
+  display: none !important;
+}
+
+html[lang^="en"] .no-en,
+html[lang^="es"] .no-en,
+html[lang^="hi"] .no-en,
+html[lang^="zh"] .no-en {
+  display: none !important;
+}
+
+/* URL-based fallback (class set by head.js) */
+.ifh-lang-fr .no-fr {
+  display: none !important;
+}
+
+.ifh-lang-en .no-en,
+.ifh-lang-es .no-en,
+.ifh-lang-hi .no-en,
+.ifh-lang-zh .no-en {
+  display: none !important;
+}
+
+/* ------------------------ Dropdowns: prevent flash ------------------------ */
+
+.navbar_desktop .open_menu,
+.nav-menu .nav--drop_inside {
+  display: block;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+.navbar_desktop .nav_menu_open.is-open > .open_menu,
+.nav-menu .menu-link-container.is-open > .nav--drop_inside {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}

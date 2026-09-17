@@ -1,0 +1,200 @@
+<!-- =========================================================
+     Paste into Webflow → Project Settings → Custom Code → Head
+     Replace YOUR-NETLIFY-URL with your Netlify site URL
+     ========================================================= -->
+
+<link rel="stylesheet" href="https://YOUR-NETLIFY-URL/style.css" />
+<script src="https://YOUR-NETLIFY-URL/head.js"></script>
+
+<script>
+  window.axeptioSettings = {
+    clientId: "679bd14cafa54fec89569738",
+    cookiesVersion: "ifh-fr-EU",
+    googleConsentMode: {
+      default: {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        wait_for_update: 500
+      }
+    }
+  };
+
+  (function (d, s) {
+    var t = d.getElementsByTagName(s)[0],
+      e = d.createElement(s);
+    e.async = true;
+    e.src = "//static.axept.io/sdk.js";
+    t.parentNode.insertBefore(e, t);
+  })(document, "script");
+</script>
+
+<!-- Google Tag Manager (Stape) -->
+<script>
+  !(function () {
+    "use strict";
+    function l(e) {
+      for (var t = e, r = 0, n = document.cookie.split(";"); r < n.length; r++) {
+        var o = n[r].split("=");
+        if (o[0].trim() === t) return o[1];
+      }
+    }
+    function s(e) {
+      return localStorage.getItem(e);
+    }
+    function u(e) {
+      return window[e];
+    }
+    function A(e, t) {
+      e = document.querySelector(e);
+      return t ? (null == e ? void 0 : e.getAttribute(t)) : null == e ? void 0 : e.textContent;
+    }
+    var e = window,
+      t = document,
+      r = "script",
+      n = "dataLayer",
+      o = "https://ifh-paris.com/som",
+      a = "https://load.measure.ifh-paris.com",
+      i = "3s89yqgyftdr",
+      c = "31t7=GwBJIS0qXDQgIyw8LSw%2FXwRZRkhIQRUXTw0SDlQXEAsbF1oFFgpXCh0USUkKCBw%3D",
+      g = "cookie",
+      v = "site_uid",
+      E = "",
+      d = !1;
+    try {
+      var d =
+          !!g &&
+          (m = navigator.userAgent) &&
+          !!(m = new RegExp("Version/([0-9._]+)(.*Mobile)?.*Safari.*").exec(m)) &&
+          16.4 <= parseFloat(m[1]),
+        f = "stapeUserId" === g,
+        I =
+          d && !f
+            ? (function (e, t, r) {
+                void 0 === t && (t = "");
+                var n = { cookie: l, localStorage: s, jsVariable: u, cssSelector: A },
+                  t = Array.isArray(t) ? t : [t];
+                if (e && n[e])
+                  for (var o = n[e], a = 0, i = t; a < i.length; a++) {
+                    var c = i[a],
+                      c = r ? o(c, r) : o(c);
+                    if (c) return c;
+                  }
+                else console.warn("invalid uid source", e);
+              })(g, v, E)
+            : void 0;
+      d = d && (!!I || f);
+    } catch (e) {
+      console.error(e);
+    }
+    var m = e,
+      g =
+        ((m[n] = m[n] || []),
+        m[n].push({ "gtm.start": new Date().getTime(), event: "gtm.js" }),
+        t.getElementsByTagName(r)[0]),
+      v = I ? "&bi=" + encodeURIComponent(I) : "",
+      E = t.createElement(r),
+      f =
+        (d && (i = 8 < i.length ? i.replace(/([a-z]{8}$)/, "kp$1") : "kp" + i),
+        !d && a ? a : o);
+    E.async = !0;
+    E.src = f + "/" + i + ".js?" + c + v;
+    null != (e = g.parentNode) && e.insertBefore(E, g);
+  })();
+</script>
+<!-- End Google Tag Manager (Stape) -->
+
+<!-- Google Tag Manager -->
+<script>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", "GTM-P4RJ3B4V");
+</script>
+<!-- End Google Tag Manager -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Accueil - Institut Français de l’Hôtellerie",
+  "url": "https://www.ifh-paris.com",
+  "description": "L’Institut Français de l’Hôtellerie est une école hôtelière de référence à Paris, formant les futurs professionnels de l’hospitality management, du luxe et de la gastronomie.",
+  "inLanguage": "fr",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Institut Français de l’Hôtellerie",
+    "url": "https://www.ifh-paris.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.ifh-paris.com/wp-content/uploads/2020/01/logo-ifh.png"
+    }
+  },
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Institut Français de l’Hôtellerie"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Institut Français de l’Hôtellerie",
+  "alternateName": "IFH Paris",
+  "url": "https://www.ifh-paris.com",
+  "logo": "https://www.ifh-paris.com/wp-content/uploads/2020/01/logo-ifh.png",
+  "description": "L’Institut Français de l’Hôtellerie (IFH) est une grande école hôtelière située à Paris, proposant des formations d’excellence en hospitality management, gastronomie et luxe, du Bachelor au Master.",
+  "founder": {
+    "@type": "Person",
+    "name": "Vladimir Atlani"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "7 rue Léo Delibes",
+    "addressLocality": "Paris",
+    "postalCode": "75116",
+    "addressCountry": "FR"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+33 6 59 87 73 37",
+    "email": "contact@ifh-paris.com",
+    "contactType": "customer service",
+    "availableLanguage": ["fr", "en"]
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/institut-français-de-l'hôtellerie",
+    "https://www.instagram.com/ifh.paris"
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://www.ifh-paris.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tous nos diplômes",
+      "item": "https://www.ifh-paris.com/nos-diplomes/"
+    }
+  ]
+}
+</script>
