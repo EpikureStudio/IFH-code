@@ -23,6 +23,34 @@
 })();
 
 /* =========================================================
+   Keep only critical preconnects (CDN images + font files)
+   ========================================================= */
+(function () {
+  var keep = {
+    "https://cdn.prod.website-files.com": true,
+    "https://fonts.gstatic.com": true
+  };
+
+  function trimPreconnects() {
+    var links = document.querySelectorAll(
+      'link[rel="preconnect"], link[rel="dns-prefetch"]'
+    );
+    for (var i = 0; i < links.length; i++) {
+      var href = (links[i].getAttribute("href") || "").replace(/\/$/, "");
+      if (!keep[href] && links[i].parentNode) {
+        links[i].parentNode.removeChild(links[i]);
+      }
+    }
+  }
+
+  trimPreconnects();
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", trimPreconnects);
+  }
+})();
+
+/* =========================================================
    Image loading: hero / above-the-fold → eager, rest → lazy
    ========================================================= */
 (function () {
@@ -79,36 +107,6 @@
 
   observer.observe(document.documentElement, { childList: true, subtree: true });
 
-  function preloadHeroBackground() {
-    var el = document.querySelector(
-      ".hero-slide.is-1, .home-slider .hero-slide, .home-slider .w-slide, .title_bar"
-    );
-    if (!el) return;
-
-    var bg = window.getComputedStyle(el).backgroundImage;
-    if (!bg || bg === "none") return;
-
-    var match;
-    var re = /url\(\s*["']?([^"')]+)["']?\s*\)/g;
-    var urls = [];
-    while ((match = re.exec(bg))) {
-      if (match[1] && match[1].indexOf("data:") !== 0) urls.push(match[1]);
-    }
-    if (!urls.length) return;
-
-    var href = urls[urls.length - 1];
-    if (document.querySelector('link[rel="preload"][as="image"][href="' + href + '"]')) {
-      return;
-    }
-
-    var link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "image";
-    link.href = href;
-    link.setAttribute("fetchpriority", "high");
-    document.head.appendChild(link);
-  }
-
   function finalize() {
     var vh = window.innerHeight || 800;
     var imgs = document.images;
@@ -135,8 +133,6 @@
         lcpSet = true;
       }
     }
-
-    preloadHeroBackground();
   }
 
   function runFinalize() {
