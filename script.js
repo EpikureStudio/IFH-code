@@ -233,8 +233,23 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  function schedule(fn) {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(fn, { timeout: 800 });
+    } else {
+      setTimeout(fn, 0);
+    }
+  }
+
+  // Run ASAP for language FOUC, refresh once idle (no second full pass on load)
   document.addEventListener("DOMContentLoaded", filter);
-  window.addEventListener("load", filter);
+  window.addEventListener(
+    "load",
+    function () {
+      schedule(filter);
+    },
+    { once: true }
+  );
 })();
 
 /* =========================================================
@@ -242,6 +257,8 @@ window.addEventListener("DOMContentLoaded", function () {
    ========================================================= */
 
 (function () {
+  var applied = false;
+
   function rebuildSlides(slider, lang) {
     var mask = slider.querySelector(".w-slider-mask");
     if (!mask) return;
@@ -266,22 +283,28 @@ window.addEventListener("DOMContentLoaded", function () {
     slidesToUse.forEach(function (slide) {
       mask.appendChild(slide.cloneNode(true));
     });
-
-    try {
-      Webflow.require("slider").redraw();
-    } catch (e) {}
   }
 
   function apply() {
-    var lang = window.IFH.getDisplayLang();
+    if (applied) return;
+    applied = true;
 
-    document.querySelectorAll(".w-slider").forEach(function (slider) {
+    var lang = window.IFH.getDisplayLang();
+    var sliders = document.querySelectorAll(".w-slider");
+
+    sliders.forEach(function (slider) {
       rebuildSlides(slider, lang);
     });
+
+    // Single redraw after all sliders rebuilt (avoids double main-thread hit)
+    if (sliders.length) {
+      try {
+        Webflow.require("slider").redraw();
+      } catch (e) {}
+    }
   }
 
   document.addEventListener("DOMContentLoaded", apply);
-  window.addEventListener("load", apply);
 })();
 
 /* =========================================================

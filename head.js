@@ -52,18 +52,29 @@
 
 /* =========================================================
    Image loading: hero / above-the-fold → eager, rest → lazy
+   Partner marquee logos always lazy (CSS animation unchanged)
    ========================================================= */
 (function () {
   var HERO_ROOT =
     ".home-slider, .hero_slider, .hero_div, .hero, .hero-slide, .hero_slide, .title_bar, .w-nav-brand, .navbar_desktop, .header_div, .header, .nav-city-img";
 
+  function className(el) {
+    return typeof el.className === "string" ? el.className : "";
+  }
+
+  function isPartnerLogo(img) {
+    return /\bpartner_logo\b/.test(className(img));
+  }
+
   function inHero(img) {
+    if (isPartnerLogo(img)) return false;
+
     try {
       if (img.closest(HERO_ROOT)) return true;
     } catch (e) {}
 
-    var cls = typeof img.className === "string" ? img.className : "";
-    if (/\bpartner_logo\b|\blogo_carousel\b|\blogo_gem\b|\blogo_qualiopi\b/.test(cls)) {
+    var cls = className(img);
+    if (/\blogo_carousel\b|\blogo_gem\b|\blogo_qualiopi\b/.test(cls)) {
       return false;
     }
     if (/\blogo\b/.test(cls) || /\bimage-absolue-100\b/.test(cls)) {
@@ -74,10 +85,14 @@
 
   function setLoading(img, eager) {
     if (!(img instanceof HTMLImageElement)) return;
+    if (isPartnerLogo(img)) {
+      eager = false;
+    }
     if (eager) {
       img.setAttribute("loading", "eager");
     } else {
       img.setAttribute("loading", "lazy");
+      img.setAttribute("decoding", "async");
       if (img.getAttribute("fetchpriority") === "high") {
         img.removeAttribute("fetchpriority");
       }
@@ -114,6 +129,12 @@
 
     for (var i = 0; i < imgs.length; i++) {
       var img = imgs[i];
+
+      if (isPartnerLogo(img)) {
+        setLoading(img, false);
+        continue;
+      }
+
       var rect = img.getBoundingClientRect();
       var visible =
         rect.width > 0 &&
@@ -133,6 +154,11 @@
         lcpSet = true;
       }
     }
+
+    // Stop watching — avoids ongoing main-thread cost after first paint
+    try {
+      observer.disconnect();
+    } catch (e) {}
   }
 
   function runFinalize() {
@@ -145,5 +171,38 @@
     document.addEventListener("DOMContentLoaded", runFinalize);
   } else {
     runFinalize();
+  }
+})();
+
+/* =========================================================
+   Pause partner marquee CSS animation while off-screen
+   (identical look while visible; frees main thread / GPU)
+   ========================================================= */
+(function () {
+  function setup() {
+    var carousels = document.querySelectorAll(".logo_carousel");
+    if (!carousels.length || !("IntersectionObserver" in window)) return;
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          var el = entries[i].target;
+          el.style.animationPlayState = entries[i].isIntersecting
+            ? "running"
+            : "paused";
+        }
+      },
+      { rootMargin: "100px 0px", threshold: 0 }
+    );
+
+    for (var i = 0; i < carousels.length; i++) {
+      io.observe(carousels[i]);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setup);
+  } else {
+    setup();
   }
 })();
