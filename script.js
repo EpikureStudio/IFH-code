@@ -326,6 +326,14 @@ document.addEventListener("DOMContentLoaded", function () {
     zh: "https://cdn.weglot.com/flags/square/cn.svg"
   };
 
+  var flagAlt = {
+    fr: "Français",
+    en: "English",
+    es: "Español",
+    hi: "Hindi",
+    zh: "中文"
+  };
+
   function getLang(link) {
     var href = new URL(link.href, window.location.origin);
     var firstPath = href.pathname.split("/").filter(Boolean)[0];
@@ -343,10 +351,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var button = document.createElement("div");
   button.className = "w-locales-button";
+  button.setAttribute("role", "button");
+  button.setAttribute("aria-label", "Changer de langue");
   button.innerHTML =
     '<img src="' +
     flagMap[currentLang] +
-    '" class="wg-flag-look">' +
+    '" class="wg-flag-look" alt="' +
+    (flagAlt[currentLang] || currentLang) +
+    '">' +
     '<span class="w-locales-code">' +
     currentLang.toUpperCase() +
     "</span>" +
@@ -362,10 +374,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var a = document.createElement("a");
     a.href = link.href;
     a.className = "w-locales-option";
+    a.setAttribute("aria-label", flagAlt[lang] || lang);
     a.innerHTML =
       '<img src="' +
       flagMap[lang] +
-      '" class="wg-flag-look">' +
+      '" class="wg-flag-look" alt="' +
+      (flagAlt[lang] || lang) +
+      '">' +
       '<span class="w-locales-code">' +
       lang.toUpperCase() +
       "</span>";
