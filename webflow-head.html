@@ -2,8 +2,15 @@
      Paste into Webflow → Project Settings → Custom Code → Head
      ========================================================= -->
 
-<link rel="stylesheet" href="https://ifh-code.pages.dev/style.css?v=20260918b" />
-<script src="https://ifh-code.pages.dev/head.js?v=20260918b"></script>
+<link rel="stylesheet" href="https://ifh-code.pages.dev/style.css?v=20260921a" />
+<script src="https://ifh-code.pages.dev/head.js?v=20260921a"></script>
+<link
+  rel="alternate"
+  type="text/plain"
+  title="llms.txt"
+  href="https://ifh-code.pages.dev/llms.txt"
+/>
+<meta name="llms-txt" content="https://ifh-code.pages.dev/llms.txt" />
 
 <script>
   window.axeptioSettings = {
@@ -150,57 +157,66 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Accueil - Institut Français de l’Hôtellerie",
-  "url": "https://www.ifh-paris.com",
-  "description": "L’Institut Français de l’Hôtellerie est une école hôtelière de référence à Paris, formant les futurs professionnels de l’hospitality management, du luxe et de la gastronomie.",
-  "inLanguage": "fr",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Institut Français de l’Hôtellerie",
-    "url": "https://www.ifh-paris.com",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.ifh-paris.com/wp-content/uploads/2020/01/logo-ifh.png"
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": "https://ifh-paris.com/#organization",
+      "name": "Institut Français de l’Hôtellerie",
+      "alternateName": ["IFH Paris", "IFH"],
+      "url": "https://ifh-paris.com/fr",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://cdn.prod.website-files.com/6784da8e22d2055bf6b5e48d/6a1d9b52a8f7d03acd62ca65_Logo%20IFH%20avatar%20RS%20Social%20Media%20acronyme%20lys%20only.png"
+      },
+      "image": "https://cdn.prod.website-files.com/6784da8e22d2055bf6b5e48d/6aabea3e4e188ecfb5534dbe_IFH-Slider-1-og.jpg",
+      "description": "L’Institut Français de l’Hôtellerie (IFH) est une grande école hôtelière à Paris, proposant des formations d’excellence en hospitality management, gastronomie et luxe, du Bachelor au Master / MSc.",
+      "founder": {
+        "@type": "Person",
+        "name": "Vladimir Atlani"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "7 rue Léo Delibes",
+        "addressLocality": "Paris",
+        "postalCode": "75116",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 48.8667551,
+        "longitude": 2.2882884
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+33-6-59-87-73-37",
+          "email": "contact@ifh-paris.com",
+          "contactType": "admissions",
+          "availableLanguage": ["fr", "en"]
+        }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/institut-français-de-l'hôtellerie",
+        "https://www.instagram.com/ifhparis/"
+      ],
+      "areaServed": "FR",
+      "knowsAbout": [
+        "Hospitality management",
+        "Luxury hospitality",
+        "Gastronomy",
+        "Event management"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ifh-paris.com/#website",
+      "url": "https://ifh-paris.com",
+      "name": "Institut Français de l’Hôtellerie",
+      "inLanguage": ["fr-FR", "en-GB", "es", "hi", "zh"],
+      "publisher": {
+        "@id": "https://ifh-paris.com/#organization"
+      }
     }
-  },
-  "mainEntity": {
-    "@type": "Organization",
-    "name": "Institut Français de l’Hôtellerie"
-  }
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Institut Français de l’Hôtellerie",
-  "alternateName": "IFH Paris",
-  "url": "https://www.ifh-paris.com",
-  "logo": "https://www.ifh-paris.com/wp-content/uploads/2020/01/logo-ifh.png",
-  "description": "L’Institut Français de l’Hôtellerie (IFH) est une grande école hôtelière située à Paris, proposant des formations d’excellence en hospitality management, gastronomie et luxe, du Bachelor au Master.",
-  "founder": {
-    "@type": "Person",
-    "name": "Vladimir Atlani"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "7 rue Léo Delibes",
-    "addressLocality": "Paris",
-    "postalCode": "75116",
-    "addressCountry": "FR"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+33 6 59 87 73 37",
-    "email": "contact@ifh-paris.com",
-    "contactType": "customer service",
-    "availableLanguage": ["fr", "en"]
-  },
-  "sameAs": [
-    "https://www.linkedin.com/company/institut-français-de-l'hôtellerie",
-    "https://www.instagram.com/ifh.paris"
   ]
 }
 </script>

@@ -22,6 +22,17 @@
   document.head.appendChild(canonical);
 })();
 
+/* Point agents to llms.txt (Pages host; prefer apex redirect when configured) */
+(function () {
+  if (document.querySelector('link[title="llms.txt"]')) return;
+  var link = document.createElement("link");
+  link.rel = "alternate";
+  link.type = "text/plain";
+  link.title = "llms.txt";
+  link.href = "https://ifh-code.pages.dev/llms.txt";
+  document.head.appendChild(link);
+})();
+
 /* =========================================================
    Keep only critical preconnects (CDN images + font files)
    ========================================================= */

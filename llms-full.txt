@@ -1,0 +1,65 @@
+# IFH Paris — Extended agent map
+
+> Machine-readable index of key URLs for AI agents. Prefer curated entries in /llms.txt for discovery; use this file for broader navigation.
+
+## Locales
+
+- French (default): https://ifh-paris.com/fr
+- English: https://ifh-paris.com/en
+- Spanish: https://ifh-paris.com/es
+- Hindi: https://ifh-paris.com/hi
+- Chinese: https://ifh-paris.com/zh
+
+## Admissions & contact
+
+- [Candidature FR](https://ifh-paris.com/fr/candidature)
+- [Apply (HubSpot EN)](https://share-eu1.hsforms.com/1rae5bA6AQ5CYDbTGA1Xsfw2ese18)
+- [Contact](https://ifh-paris.com/fr/contactez-nous)
+- [Prise de rendez-vous](https://ifh-paris.com/fr/prise-de-rendez-vous)
+
+## Programs hub
+
+- [Nos programmes](https://ifh-paris.com/fr/nos-programmes)
+- [Bachelor in Hospitality Management (Initial)](https://ifh-paris.com/fr/nos-diplomes/bachelor-in-hospitality-management)
+- [Bachelor in Hospitality Management (English)](https://ifh-paris.com/fr/nos-diplomes/bachelor-in-hospitality-management-english)
+- [Bachelor Management Hôtellerie et Gastronomie (Alternance)](https://ifh-paris.com/fr/nos-diplomes/bachelor-en-management-hotellerie-et-gastronomie)
+- [Bachelor Événementiel et Management du Luxe](https://ifh-paris.com/fr/nos-diplomes/bachelor-en-evenementiel-et-management-du-luxe)
+- [Bachelor 3 Management Hôtellerie et Gastronomie](https://ifh-paris.com/fr/nos-diplomes/bachelor-3-en-management-hotellerie-et-gastronomie)
+- [Master Strategy, Project management and Entrepreneurship](https://ifh-paris.com/fr/nos-diplomes/master-in-strategy-project-management-and-entrepreneurship)
+- [Master Hospitality Management (Alternance)](https://ifh-paris.com/fr/nos-diplomes/master-hospitality-management-alternance)
+- [MSc Gastronomy and Hospitality Luxury Management](https://ifh-paris.com/fr/nos-diplomes/master-grande-ecole-msc-gastronomy-and-hospitality-luxury-management-initial)
+
+## Campus & student life
+
+- [Campus Paris](https://ifh-paris.com/fr/campus-paris)
+- [Campus Lille](https://ifh-paris.com/fr/campus-lille)
+- [Vie de campus](https://ifh-paris.com/fr/vie-de-campus)
+- [Stage du château](https://ifh-paris.com/fr/le-stage-du-chateau)
+- [Services aux étudiants](https://ifh-paris.com/fr/services-aux-etudiants)
+- [International](https://ifh-paris.com/fr/international)
+
+## School & content
+
+- [ADN de l’école](https://ifh-paris.com/fr/adn-de-lecole)
+- [Le mot du directeur](https://ifh-paris.com/fr/le-mot-du-directeur)
+- [Équipe pédagogique](https://ifh-paris.com/fr/equipe-pedagogique)
+- [Formations professionnelles](https://ifh-paris.com/fr/formations-professionnelles)
+- [Blog](https://ifh-paris.com/fr/blog)
+- [Nos évènements](https://ifh-paris.com/fr/nos-evenements)
+- [Offres stages/alternances](https://ifh-paris.com/fr/offres-de-stages-alternances)
+- [Espace entreprise](https://ifh-paris.com/fr/espace-entreprise)
+- [Espace presse](https://ifh-paris.com/fr/espace-presse)
+
+## Legal
+
+- [Mentions légales](https://ifh-paris.com/fr/mentions-legales)
+- [Politique de confidentialité](https://ifh-paris.com/fr/politique-de-confidentialite)
+- [Politique cookies](https://ifh-paris.com/fr/politique-de-gestion-des-cookies)
+
+## Organization
+
+- Name: Institut Français de l’Hôtellerie (IFH Paris)
+- Address: 7 rue Léo Delibes, 75116 Paris, France
+- Founder / Director: Vladimir Atlani
+- Instagram: https://www.instagram.com/ifhparis/
+- LinkedIn: https://www.linkedin.com/company/institut-français-de-l'hôtellerie

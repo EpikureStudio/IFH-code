@@ -1,0 +1,33 @@
+# Institut Français de l’Hôtellerie (IFH Paris)
+
+> Grande école hôtelière à Paris. Formations Bachelor, Master et MSc en hospitality management, gastronomie et luxe. Campus Paris (7 rue Léo Delibes, 75016) et Lille.
+
+Site principal: https://ifh-paris.com/fr
+English: https://ifh-paris.com/en
+Contact: contact@ifh-paris.com | +33 6 59 87 73 37
+
+## Primary pages
+
+- [Accueil](https://ifh-paris.com/fr): Présentation de l’école et de l’offre de formation
+- [Nos programmes](https://ifh-paris.com/fr/nos-programmes): Catalogue Bachelor / Master / MSc
+- [Candidature](https://ifh-paris.com/fr/candidature): Dossier d’admission en ligne
+- [Contactez-nous](https://ifh-paris.com/fr/contactez-nous): Contact admissions et scolarité
+- [Campus Paris](https://ifh-paris.com/fr/campus-paris): Campus parisien
+- [Campus Lille](https://ifh-paris.com/fr/campus-lille): Campus lillois
+- [Nos évènements](https://ifh-paris.com/fr/nos-evenements): JPO et événements immersifs
+- [Offres de stages / alternances](https://ifh-paris.com/fr/offres-de-stages-alternances): Offres entreprises partenaires
+- [International](https://ifh-paris.com/fr/international): Stages et débouchés internationaux
+- [Blog](https://ifh-paris.com/fr/blog): Actualités et conseils IFH
+- [ADN de l’école](https://ifh-paris.com/fr/adn-de-lecole): Valeurs et partenariats
+- [Le mot du directeur](https://ifh-paris.com/fr/le-mot-du-directeur): Message de Vladimir Atlani
+- [Équipe pédagogique](https://ifh-paris.com/fr/equipe-pedagogique): Enseignants et experts
+- [Services aux étudiants](https://ifh-paris.com/fr/services-aux-etudiants): Logement, financements, accueil
+- [Formations professionnelles](https://ifh-paris.com/fr/formations-professionnelles): Formation continue
+- [Espace entreprise](https://ifh-paris.com/fr/espace-entreprise): Partenariats et taxe d’apprentissage
+- [Politique de confidentialité](https://ifh-paris.com/fr/politique-de-confidentialite): RGPD
+- [Mentions légales](https://ifh-paris.com/fr/mentions-legales): Éditeur et hébergeur
+
+## Optional
+
+- [Full site map for agents](https://ifh-code.pages.dev/llms-full.txt): Extended link list
+- [Sitemap XML](https://ifh-paris.com/sitemap.xml): Crawlable URL index
