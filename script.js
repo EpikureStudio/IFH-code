@@ -726,7 +726,9 @@ window.addEventListener("DOMContentLoaded", function () {
     if (t.indexOf("mode & luxe") !== -1) return true;
     if (t.indexOf("mode et luxe") !== -1) return true;
     if (t.indexOf("mode, luxe") !== -1) return true;
+    if (t.indexOf("mode luxe") !== -1) return true;
     if (t.indexOf("(mlb)") !== -1) return true;
+    if (/(^|[^a-z])mlb([^a-z]|$)/.test(t)) return true;
     return false;
   }
 
@@ -763,6 +765,18 @@ window.addEventListener("DOMContentLoaded", function () {
     return textHasModeLuxe(card.textContent);
   }
 
+  function isModeLuxePage() {
+    var h1 = document.querySelector(
+      ".event_title_bar_content h1, .event_title_bar h1, h1.heading-2, h1"
+    );
+    if (h1 && textHasModeLuxe(h1.textContent)) return true;
+
+    var filtre = document.querySelector("[filtre]");
+    if (filtre && textHasModeLuxe(filtre.getAttribute("filtre"))) return true;
+
+    return textHasModeLuxe(window.location.pathname.replace(/-/g, " "));
+  }
+
   function getFormIdForContext(el) {
     return isModeLuxeContext(el) ? HS_FORM_MODE_LUXE : HS_FORM_DEFAULT;
   }
@@ -795,20 +809,24 @@ window.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(script);
   }
 
-  function findFormContainer(popup) {
+  function findFormContainer(root) {
+    if (!root) return null;
+    if (
+      root.matches &&
+      root.matches(".code-embed-6, .w-embed.w-script, .w-embed")
+    ) {
+      return root;
+    }
     return (
-      popup.querySelector(".code-embed-6.w-embed") ||
-      popup.querySelector(".cms_about.sticky .w-embed.w-script") ||
-      popup.querySelector(".cms_about.sticky .w-embed") ||
-      popup.querySelector(".w-embed.w-script")
+      root.querySelector(".code-embed-6.w-embed") ||
+      root.querySelector(".cms_about.sticky .w-embed.w-script") ||
+      root.querySelector(".cms_about.sticky .w-embed") ||
+      root.querySelector(".w-embed.w-script")
     );
   }
 
-  function ensureHubspotForm(popup) {
-    var container = findFormContainer(popup);
-    if (!container) return;
-
-    var formId = getFormIdForContext(popup);
+  function ensureFormInContainer(container, formId) {
+    if (!container || !formId) return;
     if (container.getAttribute("data-ifh-hs-form") === formId) return;
 
     // Keep Webflow's default embed when it's already the right form
@@ -827,7 +845,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     var target = document.createElement("div");
     var targetId =
-      "ifh-hs-" + formId.slice(0, 8) + "-" + String(++ensureHubspotForm._n);
+      "ifh-hs-" + formId.slice(0, 8) + "-" + String(++ensureFormInContainer._n);
     target.id = targetId;
     container.appendChild(target);
 
@@ -842,7 +860,24 @@ window.addEventListener("DOMContentLoaded", function () {
       } catch (err) {}
     });
   }
-  ensureHubspotForm._n = 0;
+  ensureFormInContainer._n = 0;
+
+  function ensureHubspotForm(popup) {
+    ensureFormInContainer(findFormContainer(popup), getFormIdForContext(popup));
+  }
+
+  function swapModeLuxePageForm() {
+    if (!isModeLuxePage()) return;
+
+    document
+      .querySelectorAll(
+        ".cms_about.sticky .code-embed-6, .cms_about.sticky .w-embed.w-script, .cms_about.sticky .w-embed"
+      )
+      .forEach(function (container) {
+        if (container.closest(".event--popup")) return;
+        ensureFormInContainer(container, HS_FORM_MODE_LUXE);
+      });
+  }
 
   function closePopup() {
     if (!openPopup) return;
@@ -902,6 +937,7 @@ window.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".event--popup").forEach(function (popup) {
     if (isModeLuxeContext(popup)) ensureHubspotForm(popup);
   });
+  swapModeLuxePageForm();
 
   document.addEventListener(
     "click",
