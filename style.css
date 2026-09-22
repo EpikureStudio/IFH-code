@@ -287,11 +287,16 @@ html[lang^="zh"] .no-en {
 
 .event--popup.is-open {
   display: flex !important;
-  z-index: 9999;
+  z-index: 99999;
 }
 
 .event--popup-bg {
   cursor: pointer;
+  z-index: 1;
+}
+
+.event--popup.is-open .event--popup-content {
+  z-index: 2;
 }
 
 body.has-event-popup-open {

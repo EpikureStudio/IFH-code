@@ -683,45 +683,90 @@ window.addEventListener("DOMContentLoaded", function () {
 /* =========================================================
    EVENT POPUPS
    CTA "Je m'inscris" → open .event--popup
-   .event--popup-bg (or Escape) → close
+   .event--popup-bg / .popup--close / Escape → close
    ========================================================= */
 
 window.addEventListener("DOMContentLoaded", function () {
   var openPopup = null;
+  var openParent = null;
+  var openNext = null;
 
   function closePopup() {
     if (!openPopup) return;
+
     openPopup.classList.remove("is-open");
+    openPopup.style.display = "none";
+
+    if (openParent) {
+      if (openNext && openNext.parentNode === openParent) {
+        openParent.insertBefore(openPopup, openNext);
+      } else {
+        openParent.appendChild(openPopup);
+      }
+    }
+
     openPopup = null;
+    openParent = null;
+    openNext = null;
     document.body.classList.remove("has-event-popup-open");
   }
 
   function openEventPopup(popup) {
     if (!popup) return;
     if (openPopup && openPopup !== popup) closePopup();
+
     openPopup = popup;
+    openParent = popup.parentNode;
+    openNext = popup.nextSibling;
+
+    document.body.appendChild(popup);
     popup.classList.add("is-open");
+    popup.style.display = "flex";
     document.body.classList.add("has-event-popup-open");
   }
 
-  document.addEventListener("click", function (e) {
-    var closeBtn = e.target.closest(".popup--close, .event--popup-bg");
-    if (closeBtn) {
-      e.preventDefault();
-      closePopup();
-      return;
+  function findPopupFromCta(cta) {
+    var subscription = cta.closest(".event_subscription");
+    if (!subscription) return null;
+
+    var parent = subscription.parentElement;
+    if (parent) {
+      var children = parent.children;
+      for (var i = 0; i < children.length; i++) {
+        if (children[i].classList.contains("event--popup")) return children[i];
+      }
     }
 
-    var cta = e.target.closest(".event_subscription .cta, .event_subscription a.w-button");
-    if (!cta) return;
+    var sib = subscription.nextElementSibling;
+    if (sib && sib.classList.contains("event--popup")) return sib;
 
     var card = cta.closest(".event_card, .w-dyn-item");
-    var popup = card && card.querySelector(".event--popup");
-    if (!popup) return;
+    return card ? card.querySelector(".event--popup") : null;
+  }
 
-    e.preventDefault();
-    openEventPopup(popup);
-  });
+  document.addEventListener(
+    "click",
+    function (e) {
+      var closeEl = e.target.closest(".popup--close, .event--popup-bg");
+      if (closeEl) {
+        e.preventDefault();
+        e.stopPropagation();
+        closePopup();
+        return;
+      }
+
+      var cta = e.target.closest("a.cta, a.w-button, .cta");
+      if (!cta || !cta.closest(".event_subscription")) return;
+
+      var popup = findPopupFromCta(cta);
+      if (!popup) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+      openEventPopup(popup);
+    },
+    true
+  );
 
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") closePopup();
