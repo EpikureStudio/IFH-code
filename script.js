@@ -563,11 +563,15 @@ window.Webflow.push(function () {
 /* =========================================================
    EVENTS TABS
    .event--tab-trigger ↔ .event--tab (matched by index)
+   FR → tabs 0–1 (Hôtellerie, Mode & Luxe)
+   EN (+ other langs) → tabs 2–3 (On-site, Online)
    ========================================================= */
 
 window.addEventListener("DOMContentLoaded", function () {
   var sections = document.querySelectorAll(".events--tabs");
   if (!sections.length) return;
+
+  var isFr = window.IFH.getDisplayLang() === "fr";
 
   sections.forEach(function (section, sectionIndex) {
     var triggers = Array.prototype.slice.call(
@@ -579,12 +583,31 @@ window.addEventListener("DOMContentLoaded", function () {
 
     if (!triggers.length || !tabs.length) return;
 
+    var visibleIndexes = [];
+    triggers.forEach(function (trigger, index) {
+      var show = isFr ? index < 2 : index >= 2;
+      trigger.classList.toggle("is-lang-hidden", !show);
+      trigger.hidden = !show;
+      if (tabs[index]) {
+        tabs[index].classList.toggle("is-lang-hidden", !show);
+        if (!show) {
+          tabs[index].hidden = true;
+          tabs[index].style.display = "none";
+          tabs[index].classList.remove("is-active");
+        }
+      }
+      if (show) visibleIndexes.push(index);
+    });
+
+    if (!visibleIndexes.length) return;
+
     function activate(index) {
-      if (index < 0 || index >= tabs.length) return;
+      if (visibleIndexes.indexOf(index) === -1) return;
 
       triggers.forEach(function (trigger, i) {
         var on = i === index;
         trigger.classList.toggle("is-active", on);
+        if (visibleIndexes.indexOf(i) === -1) return;
         trigger.setAttribute("aria-selected", on ? "true" : "false");
         trigger.setAttribute("tabindex", on ? "0" : "-1");
       });
@@ -592,12 +615,19 @@ window.addEventListener("DOMContentLoaded", function () {
       tabs.forEach(function (tab, i) {
         var on = i === index;
         tab.classList.toggle("is-active", on);
+        if (visibleIndexes.indexOf(i) === -1) {
+          tab.hidden = true;
+          tab.style.display = "none";
+          return;
+        }
         tab.hidden = !on;
         tab.style.display = on ? "" : "none";
       });
     }
 
     triggers.forEach(function (trigger, index) {
+      if (visibleIndexes.indexOf(index) === -1) return;
+
       var panelId = "event-tab-" + sectionIndex + "-" + index;
 
       trigger.setAttribute("role", "tab");
@@ -614,15 +644,17 @@ window.addEventListener("DOMContentLoaded", function () {
       });
 
       trigger.addEventListener("keydown", function (e) {
-        var next = index;
+        var pos = visibleIndexes.indexOf(index);
+        var nextPos = pos;
+
         if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-          next = (index + 1) % triggers.length;
+          nextPos = (pos + 1) % visibleIndexes.length;
         } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-          next = (index - 1 + triggers.length) % triggers.length;
+          nextPos = (pos - 1 + visibleIndexes.length) % visibleIndexes.length;
         } else if (e.key === "Home") {
-          next = 0;
+          nextPos = 0;
         } else if (e.key === "End") {
-          next = triggers.length - 1;
+          nextPos = visibleIndexes.length - 1;
         } else if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           activate(index);
@@ -630,7 +662,9 @@ window.addEventListener("DOMContentLoaded", function () {
         } else {
           return;
         }
+
         e.preventDefault();
+        var next = visibleIndexes[nextPos];
         activate(next);
         triggers[next].focus();
       });
@@ -639,9 +673,9 @@ window.addEventListener("DOMContentLoaded", function () {
     var parent = section.querySelector(".event--tab-trigger-parent");
     if (parent) parent.setAttribute("role", "tablist");
 
-    var initial = triggers.findIndex(function (t) {
-      return t.classList.contains("is-active");
+    var initial = visibleIndexes.find(function (i) {
+      return triggers[i].classList.contains("is-active");
     });
-    activate(initial >= 0 ? initial : 0);
+    activate(initial !== undefined ? initial : visibleIndexes[0]);
   });
 });

@@ -253,10 +253,33 @@ html[lang^="zh"] .no-en {
   color: #fff !important;
 }
 
+.event--tab-trigger.is-lang-hidden,
+.event--tab-content > .event--tab.is-lang-hidden {
+  display: none !important;
+}
+
 .event--tab-content > .event--tab:not(.is-active) {
   display: none !important;
 }
 
-.event--tab-content > .event--tab.is-active {
+.event--tab-content > .event--tab.is-active:not(.is-lang-hidden) {
   display: block !important;
 }
+
+/* FOUC: hide wrong-lang categories before script.js runs (head.js sets .ifh-lang-*) */
+.ifh-lang-fr .event--tab-trigger-parent > .event--tab-trigger:nth-child(n + 3),
+.ifh-lang-fr .event--tab-content > .event--tab:nth-child(n + 3) {
+  display: none !important;
+}
+
+.ifh-lang-en .event--tab-trigger-parent > .event--tab-trigger:nth-child(-n + 2),
+.ifh-lang-es .event--tab-trigger-parent > .event--tab-trigger:nth-child(-n + 2),
+.ifh-lang-hi .event--tab-trigger-parent > .event--tab-trigger:nth-child(-n + 2),
+.ifh-lang-zh .event--tab-trigger-parent > .event--tab-trigger:nth-child(-n + 2),
+.ifh-lang-en .event--tab-content > .event--tab:nth-child(-n + 2),
+.ifh-lang-es .event--tab-content > .event--tab:nth-child(-n + 2),
+.ifh-lang-hi .event--tab-content > .event--tab:nth-child(-n + 2),
+.ifh-lang-zh .event--tab-content > .event--tab:nth-child(-n + 2) {
+  display: none !important;
+}
+
