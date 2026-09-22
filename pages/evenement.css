@@ -1,0 +1,13 @@
+/* =========================================================
+   Event template (CMS) — related events filter
+   Hosted at https://ifh-code.pages.dev/pages/evenement.css
+   ========================================================= */
+
+[filtre] [attribute].is-filtre-hidden,
+[filtre] [attribute][hidden] {
+  display: none !important;
+}
+
+[filtre].is-filtre-empty {
+  display: none !important;
+}
