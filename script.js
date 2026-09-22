@@ -705,8 +705,8 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 
   document.addEventListener("click", function (e) {
-    var bg = e.target.closest(".event--popup-bg");
-    if (bg) {
+    var closeBtn = e.target.closest(".popup--close, .event--popup-bg");
+    if (closeBtn) {
       e.preventDefault();
       closePopup();
       return;
