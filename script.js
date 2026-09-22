@@ -559,3 +559,83 @@ window.Webflow.push(function () {
     });
   });
 });
+
+/* =========================================================
+   EVENTS TABS
+   .event--tab-trigger ↔ .event--tab (matched by index)
+   ========================================================= */
+
+window.addEventListener("DOMContentLoaded", function () {
+  var sections = document.querySelectorAll(".events--tabs");
+  if (!sections.length) return;
+
+  sections.forEach(function (section, sectionIndex) {
+    var triggers = Array.prototype.slice.call(
+      section.querySelectorAll(".event--tab-trigger")
+    );
+    var tabs = Array.prototype.slice.call(
+      section.querySelectorAll(".event--tab")
+    );
+
+    if (!triggers.length || !tabs.length) return;
+
+    function activate(index) {
+      if (index < 0 || index >= tabs.length) return;
+
+      triggers.forEach(function (trigger, i) {
+        var on = i === index;
+        trigger.classList.toggle("is-active", on);
+        trigger.setAttribute("aria-selected", on ? "true" : "false");
+        trigger.setAttribute("tabindex", on ? "0" : "-1");
+      });
+
+      tabs.forEach(function (tab, i) {
+        var on = i === index;
+        tab.classList.toggle("is-active", on);
+        tab.hidden = !on;
+      });
+    }
+
+    triggers.forEach(function (trigger, index) {
+      var panelId = "event-tab-" + sectionIndex + "-" + index;
+
+      trigger.setAttribute("role", "tab");
+      trigger.setAttribute("aria-controls", panelId);
+
+      if (tabs[index]) {
+        tabs[index].setAttribute("role", "tabpanel");
+        if (!tabs[index].id) tabs[index].id = panelId;
+      }
+
+      trigger.addEventListener("click", function () {
+        activate(index);
+      });
+
+      trigger.addEventListener("keydown", function (e) {
+        var next = index;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          next = (index + 1) % triggers.length;
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          next = (index - 1 + triggers.length) % triggers.length;
+        } else if (e.key === "Home") {
+          next = 0;
+        } else if (e.key === "End") {
+          next = triggers.length - 1;
+        } else {
+          return;
+        }
+        e.preventDefault();
+        activate(next);
+        triggers[next].focus();
+      });
+    });
+
+    var parent = section.querySelector(".event--tab-trigger-parent");
+    if (parent) parent.setAttribute("role", "tablist");
+
+    var initial = triggers.findIndex(function (t) {
+      return t.classList.contains("is-active");
+    });
+    activate(initial >= 0 ? initial : 0);
+  });
+});
