@@ -696,6 +696,21 @@ window.addEventListener("DOMContentLoaded", function () {
   var openPopup = null;
   var openParent = null;
   var openNext = null;
+  var scrollY = 0;
+
+  function lockScroll() {
+    scrollY = window.scrollY || window.pageYOffset || 0;
+    document.documentElement.classList.add("has-event-popup-open");
+    document.body.classList.add("has-event-popup-open");
+    document.body.style.top = "-" + scrollY + "px";
+  }
+
+  function unlockScroll() {
+    document.documentElement.classList.remove("has-event-popup-open");
+    document.body.classList.remove("has-event-popup-open");
+    document.body.style.top = "";
+    window.scrollTo(0, scrollY);
+  }
 
   function normalize(value) {
     return String(value || "")
@@ -846,7 +861,7 @@ window.addEventListener("DOMContentLoaded", function () {
     openPopup = null;
     openParent = null;
     openNext = null;
-    document.body.classList.remove("has-event-popup-open");
+    unlockScroll();
   }
 
   function openEventPopup(popup) {
@@ -862,7 +877,7 @@ window.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(popup);
     popup.classList.add("is-open");
     popup.style.display = "flex";
-    document.body.classList.add("has-event-popup-open");
+    lockScroll();
   }
 
   function findPopupFromCta(cta) {

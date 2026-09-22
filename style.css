@@ -288,6 +288,7 @@ html[lang^="zh"] .no-en {
 .event--popup.is-open {
   display: flex !important;
   z-index: 99999;
+  overscroll-behavior: contain;
 }
 
 .event--popup-bg {
@@ -297,9 +298,20 @@ html[lang^="zh"] .no-en {
 
 .event--popup.is-open .event--popup-content {
   z-index: 2;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+body.has-event-popup-open,
+html.has-event-popup-open {
+  overflow: hidden !important;
+  overscroll-behavior: none;
 }
 
 body.has-event-popup-open {
-  overflow: hidden;
+  position: fixed;
+  inset: 0;
+  width: 100%;
 }
 
