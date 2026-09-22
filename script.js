@@ -684,12 +684,150 @@ window.addEventListener("DOMContentLoaded", function () {
    EVENT POPUPS
    CTA "Je m'inscris" → open .event--popup
    .event--popup-bg / .popup--close / Escape → close
+   Mode & Luxe → HubSpot form e51e4f25-0212-42c2-a30c-32138cc767a2
    ========================================================= */
 
 window.addEventListener("DOMContentLoaded", function () {
+  var HS_PORTAL = "145771532";
+  var HS_REGION = "eu1";
+  var HS_FORM_DEFAULT = "6a59d73c-85c5-4218-99d8-56b239b59b26";
+  var HS_FORM_MODE_LUXE = "e51e4f25-0212-42c2-a30c-32138cc767a2";
+
   var openPopup = null;
   var openParent = null;
   var openNext = null;
+
+  function normalize(value) {
+    return String(value || "")
+      .replace(/\u00a0/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  }
+
+  function textHasModeLuxe(value) {
+    var t = normalize(value);
+    if (!t) return false;
+    if (t.indexOf("mode & luxe") !== -1) return true;
+    if (t.indexOf("mode et luxe") !== -1) return true;
+    if (t.indexOf("mode, luxe") !== -1) return true;
+    if (t.indexOf("(mlb)") !== -1) return true;
+    return false;
+  }
+
+  function isModeLuxeContext(el) {
+    if (!el) return false;
+
+    var card = el.closest(".event_card, .w-dyn-item") || el;
+    if (textHasModeLuxe(card.getAttribute("attribute"))) return true;
+
+    var filtreWrap = card.closest("[filtre]");
+    if (filtreWrap && textHasModeLuxe(filtreWrap.getAttribute("filtre"))) {
+      return true;
+    }
+
+    var tab = card.closest(".event--tab");
+    var section = card.closest(".events--tabs");
+    if (tab && section) {
+      var triggers = section.querySelectorAll(
+        ".event--tab-trigger-parent > .event--tab-trigger"
+      );
+      var tabs = section.querySelectorAll(".event--tab-content > .event--tab");
+      for (var i = 0; i < tabs.length; i++) {
+        if (tabs[i] === tab && triggers[i] && textHasModeLuxe(triggers[i].textContent)) {
+          return true;
+        }
+      }
+    }
+
+    var heading = card.querySelector(
+      ".heading-3.cards, .heading-2, h1, h3"
+    );
+    if (heading && textHasModeLuxe(heading.textContent)) return true;
+
+    return textHasModeLuxe(card.textContent);
+  }
+
+  function getFormIdForContext(el) {
+    return isModeLuxeContext(el) ? HS_FORM_MODE_LUXE : HS_FORM_DEFAULT;
+  }
+
+  function loadHubspot(cb) {
+    if (window.hbspt && window.hbspt.forms) {
+      cb();
+      return;
+    }
+
+    var existing = document.querySelector(
+      'script[src*="js-eu1.hsforms.net/forms/embed"]'
+    );
+
+    function onReady() {
+      if (window.hbspt && window.hbspt.forms) cb();
+      else setTimeout(onReady, 50);
+    }
+
+    if (existing) {
+      existing.addEventListener("load", onReady);
+      onReady();
+      return;
+    }
+
+    var script = document.createElement("script");
+    script.charset = "utf-8";
+    script.src = "//js-eu1.hsforms.net/forms/embed/v2.js";
+    script.onload = onReady;
+    document.body.appendChild(script);
+  }
+
+  function findFormContainer(popup) {
+    return (
+      popup.querySelector(".code-embed-6.w-embed") ||
+      popup.querySelector(".cms_about.sticky .w-embed.w-script") ||
+      popup.querySelector(".cms_about.sticky .w-embed") ||
+      popup.querySelector(".w-embed.w-script")
+    );
+  }
+
+  function ensureHubspotForm(popup) {
+    var container = findFormContainer(popup);
+    if (!container) return;
+
+    var formId = getFormIdForContext(popup);
+    if (container.getAttribute("data-ifh-hs-form") === formId) return;
+
+    // Keep Webflow's default embed when it's already the right form
+    if (formId === HS_FORM_DEFAULT) {
+      var alreadyDefault =
+        container.innerHTML.indexOf(HS_FORM_DEFAULT) !== -1 ||
+        !!container.querySelector(".hbspt-form, iframe.hs-form-iframe");
+      if (alreadyDefault) {
+        container.setAttribute("data-ifh-hs-form", formId);
+        return;
+      }
+    }
+
+    container.setAttribute("data-ifh-hs-form", formId);
+    container.innerHTML = "";
+
+    var target = document.createElement("div");
+    var targetId =
+      "ifh-hs-" + formId.slice(0, 8) + "-" + String(++ensureHubspotForm._n);
+    target.id = targetId;
+    container.appendChild(target);
+
+    loadHubspot(function () {
+      try {
+        window.hbspt.forms.create({
+          portalId: HS_PORTAL,
+          formId: formId,
+          region: HS_REGION,
+          target: "#" + targetId
+        });
+      } catch (err) {}
+    });
+  }
+  ensureHubspotForm._n = 0;
 
   function closePopup() {
     if (!openPopup) return;
@@ -714,6 +852,8 @@ window.addEventListener("DOMContentLoaded", function () {
   function openEventPopup(popup) {
     if (!popup) return;
     if (openPopup && openPopup !== popup) closePopup();
+
+    ensureHubspotForm(popup);
 
     openPopup = popup;
     openParent = popup.parentNode;
@@ -743,6 +883,10 @@ window.addEventListener("DOMContentLoaded", function () {
     var card = cta.closest(".event_card, .w-dyn-item");
     return card ? card.querySelector(".event--popup") : null;
   }
+
+  document.querySelectorAll(".event--popup").forEach(function (popup) {
+    if (isModeLuxeContext(popup)) ensureHubspotForm(popup);
+  });
 
   document.addEventListener(
     "click",
