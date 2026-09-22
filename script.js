@@ -571,10 +571,10 @@ window.addEventListener("DOMContentLoaded", function () {
 
   sections.forEach(function (section, sectionIndex) {
     var triggers = Array.prototype.slice.call(
-      section.querySelectorAll(".event--tab-trigger")
+      section.querySelectorAll(".event--tab-trigger-parent > .event--tab-trigger")
     );
     var tabs = Array.prototype.slice.call(
-      section.querySelectorAll(".event--tab")
+      section.querySelectorAll(".event--tab-content > .event--tab")
     );
 
     if (!triggers.length || !tabs.length) return;
@@ -593,6 +593,7 @@ window.addEventListener("DOMContentLoaded", function () {
         var on = i === index;
         tab.classList.toggle("is-active", on);
         tab.hidden = !on;
+        tab.style.display = on ? "" : "none";
       });
     }
 
@@ -607,7 +608,8 @@ window.addEventListener("DOMContentLoaded", function () {
         if (!tabs[index].id) tabs[index].id = panelId;
       }
 
-      trigger.addEventListener("click", function () {
+      trigger.addEventListener("click", function (e) {
+        e.preventDefault();
         activate(index);
       });
 
@@ -621,6 +623,10 @@ window.addEventListener("DOMContentLoaded", function () {
           next = 0;
         } else if (e.key === "End") {
           next = triggers.length - 1;
+        } else if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate(index);
+          return;
         } else {
           return;
         }

@@ -245,12 +245,18 @@ html[lang^="zh"] .no-en {
 .event--tab-trigger {
   cursor: pointer;
   user-select: none;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.event--tab:not(.is-active) {
+.event--tab-trigger.is-active {
+  background-color: var(--gold, #b39059) !important;
+  color: #fff !important;
+}
+
+.event--tab-content > .event--tab:not(.is-active) {
   display: none !important;
 }
 
-.event--tab.is-active {
-  display: block;
+.event--tab-content > .event--tab.is-active {
+  display: block !important;
 }
