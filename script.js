@@ -679,3 +679,51 @@ window.addEventListener("DOMContentLoaded", function () {
     activate(initial !== undefined ? initial : visibleIndexes[0]);
   });
 });
+
+/* =========================================================
+   EVENT POPUPS
+   CTA "Je m'inscris" → open .event--popup
+   .event--popup-bg (or Escape) → close
+   ========================================================= */
+
+window.addEventListener("DOMContentLoaded", function () {
+  var openPopup = null;
+
+  function closePopup() {
+    if (!openPopup) return;
+    openPopup.classList.remove("is-open");
+    openPopup = null;
+    document.body.classList.remove("has-event-popup-open");
+  }
+
+  function openEventPopup(popup) {
+    if (!popup) return;
+    if (openPopup && openPopup !== popup) closePopup();
+    openPopup = popup;
+    popup.classList.add("is-open");
+    document.body.classList.add("has-event-popup-open");
+  }
+
+  document.addEventListener("click", function (e) {
+    var bg = e.target.closest(".event--popup-bg");
+    if (bg) {
+      e.preventDefault();
+      closePopup();
+      return;
+    }
+
+    var cta = e.target.closest(".event_subscription .cta, .event_subscription a.w-button");
+    if (!cta) return;
+
+    var card = cta.closest(".event_card, .w-dyn-item");
+    var popup = card && card.querySelector(".event--popup");
+    if (!popup) return;
+
+    e.preventDefault();
+    openEventPopup(popup);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closePopup();
+  });
+});

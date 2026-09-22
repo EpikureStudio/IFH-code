@@ -283,3 +283,18 @@ html[lang^="zh"] .no-en {
   display: none !important;
 }
 
+/* ------------------------ Event popups ------------------------ */
+
+.event--popup.is-open {
+  display: flex !important;
+  z-index: 9999;
+}
+
+.event--popup-bg {
+  cursor: pointer;
+}
+
+body.has-event-popup-open {
+  overflow: hidden;
+}
+
